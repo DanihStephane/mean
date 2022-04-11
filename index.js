@@ -27,7 +27,7 @@ async function use_routes(routes){
 use_routes(routes);
 
 app.get('/', function (req, res){
-    res.json({message: 'Welcome to Ekaly'});
+    res.json({message: 'Welcome to Ekaly application'});
 })
 
 const port = process.env.PORT || 3000;
