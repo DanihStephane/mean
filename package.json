@@ -1,20 +1,16 @@
 {
-  "name": "ekaly-ws",
+  "name": "crud",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "moment": "^2.29.1",
-    "mongodb": "^4.4.1",
-    "sha1": "^1.1.1"
+    "mongodb": "^4.4.1"
   }
 }

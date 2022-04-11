@@ -1,36 +1,54 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('express')
+const bodyParser = require('body-parser')
+const {MongoClient} = require('mongodb')
 const cors = require('cors');
-const moment = require('moment');
-const routes = require('./routes');
 
-const app = express();
+const connectionString = "mongodb+srv://m1p9mean-912:m1p9mean-912@cluster0.lpbgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+function getDb(){
+    return MongoClient.connect(connectionString, { useUnifiedTopology: true })
+    .then((client) => {
+        const db = client.db('e-kaly')
+        return db;
+    })
+}
+
+const app = express()
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
-app.use(express.static('public'))
 
-app.set('json replacer', function (key, value) {
-    if (this[key] instanceof Date) {
-      value = moment(this[key]).format("YYYY-MM-DD HH:mm:ss");
-    }
-    return value;
-});
-
-async function use_routes(routes){
-    Object.keys(routes)
-    .forEach((key) => {
-        app.use(`/${key}`, routes[key]);
-    });
-}
-  
-use_routes(routes);
-
-app.get('/', function (req, res){
-    res.json({message: 'Welcome to Ekaly application'});
+app
+.post('/personnes', function(req, res){
+    getDb()
+    .then((db) => {
+        const personneCollection = db.collection('personne')
+        return personneCollection
+        .insertOne(req.body)
+        .then((result) => {
+            res.json({status: 'SUCCESS', message: 'Personne created'});
+        })
+    })
+    .catch((error) => {
+        res.json({status: 'ERROR', message: error.message});
+    })
+})
+.get('/personnes', function (req, res){
+    getDb()
+    .then((db) => {
+        const personneCollection = db.collection('personne')
+        return personneCollection
+        .find()
+        .toArray()
+        .then((result) => {
+            res.json({status: 'SUCCESS', data: result});
+        })
+    })
+    .catch((error) => {
+        res.json({status: 'ERROR', message: error.message});
+    })
 })
 
-const port = process.env.PORT || 3000;
+const port = 3000
 app.listen(port, function (){
-    console.log(`Listening on port ${port}`);
-});
+    console.log(`Listening on port ${port}`); 
+})
