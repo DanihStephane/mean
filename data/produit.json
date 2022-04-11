@@ -1,0 +1,26 @@
+[
+  {
+    "_id": {
+      "$oid": "62517e0eccd3134b2722da24"
+    },
+    "nom": "Steak frite salade",
+    "id_restaurant": {
+      "$oid": "625183b3ccd3134b2722da35"
+    },
+    "cout": 12000,
+    "prix": 16000,
+    "img": "1.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "62517e52ccd3134b2722da25"
+    },
+    "nom": "Ravitoto sy Hena-kisoa",
+    "id_restaurant": {
+      "$oid": "625183b3ccd3134b2722da35"
+    },
+    "cout": 13000,
+    "prix": 20000,
+    "img": "2.jpg"
+  }
+]
